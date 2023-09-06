@@ -1,17 +1,12 @@
-# kool-templates
+# kool-game-template
 
-This repo will become a collection of different [kool](https://github.com/fabmax/kool) template / starter projects.
-However, for now there is only one:
-
-# kool-basic-template
-
-Template project for creating a new multi-platform application with kool. The project contains the minimum set of
+Template project for creating a standalone game with kool. The project contains the minimum set of
 dependencies and launcher code to get you started.
 
 ### How to start
 
 Clone this project and import it into your favourite IDE (e.g. [IntelliJ](https://www.jetbrains.com/idea/)). Ideally,
-the `build.gradle.kts` inside `kool-basic-template` is recognized and imported automatically. The
+the `build.gradle.kts` inside `kool-game-template` is recognized and imported automatically. The
 project already contains a minimal set of example code:
 
 - [`src/jvmMain/kotlin/Launcher.kt`](kool-basic-template/src/jvmMain/kotlin/Launcher.kt):
