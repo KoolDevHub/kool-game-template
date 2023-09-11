@@ -1,0 +1,18 @@
+{
+  "displayWidth": 800,
+  "displayHeight": 600,
+  "fullscreen": false,
+  "audioVolume": 0.5,
+  "keyBindings": {
+    "UPWARD": {
+      "code": -27,
+      "isLocal": false,
+      "name": "CURSOR_UP"
+    },
+    "DOWNWARD": {
+      "code": -28,
+      "isLocal": false,
+      "name": "CURSOR_DOWN"
+    }
+  }
+}

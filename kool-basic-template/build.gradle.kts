@@ -1,7 +1,5 @@
 @file:Suppress("UNUSED_VARIABLE")
 
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalDistributionDsl
-
 plugins {
     kotlin("multiplatform") version "1.8.22"
 }
@@ -13,18 +11,9 @@ repositories {
 }
 
 kotlin {
-    // kotlin multiplatform (jvm + js) setup:
+    // kotlin multiplatform (jvm) setup:
     jvm {
         jvmToolchain(11)
-    }
-    js(IR) {
-        binaries.executable()
-        browser {
-            @OptIn(ExperimentalDistributionDsl::class)
-            distribution {
-                directory = File("${rootDir}/dist/js")
-            }
-        }
     }
     
     sourceSets {
@@ -36,20 +25,14 @@ kotlin {
         // only a specific platform
         val targetPlatforms = listOf("natives-windows", "natives-linux", "natives-macos")
 
-        val commonMain by getting {
+        val jvmMain by getting {
             dependencies {
                 // add additional kotlin multi-platform dependencies here...
-
                 implementation("de.fabmax.kool:kool-core:$koolVersion")
                 implementation("de.fabmax.kool:kool-physics:$koolVersion")
 
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
-            }
-        }
-
-        val jvmMain by getting {
-            dependencies {
-                // add additional jvm-specific dependencies here...
+                implementation("com.google.code.gson:gson:2.8.8")
 
                 // add required runtime libraries for lwjgl and physx-jni
                 for (platform in targetPlatforms) {
@@ -69,12 +52,6 @@ kotlin {
                 }
             }
         }
-        
-        val jsMain by getting {
-            dependencies {
-                // add additional js-specific dependencies here...
-            }
-        }
     }
 }
 
@@ -85,7 +62,7 @@ task("runnableJar", Jar::class) {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     archiveAppendix.set("runnable")
     manifest {
-        attributes["Main-Class"] = "LauncherKt"
+        attributes["Main-Class"] = "net.kooldevhub.engine.LauncherKt"
     }
 
     val jvmConfig = configurations.getByName("jvmRuntimeClasspath").copyRecursive()
@@ -108,7 +85,7 @@ task("launch", JavaExec::class) {
 
     val jvmConfig = configurations.getByName("jvmRuntimeClasspath").copyRecursive()
     classpath = jvmConfig.fileCollection { true } + files("$buildDir/classes/kotlin/jvm/main")
-    mainClass.set("LauncherKt")
+    mainClass.set("net.kooldevhub.engine.LauncherKt")
 }
 
 val build by tasks.getting(Task::class) {
